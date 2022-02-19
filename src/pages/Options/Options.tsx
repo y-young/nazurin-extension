@@ -1,6 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { FiCheck } from 'react-icons/fi';
-import Input from './Input';
 
 const Options: React.FC = () => {
   const [host, setHost] = useState('');
@@ -49,7 +48,7 @@ const Options: React.FC = () => {
         <h1 className="text-3xl font-bold mb-6">Settings</h1>
         <div className="my-4">
           <label className="mr-2 block mb-2 text-base">API URL:</label>
-          <Input
+          <input
             type="url"
             value={host}
             onChange={(e) => setHost(e.target.value)}
@@ -60,7 +59,7 @@ const Options: React.FC = () => {
         </div>
         <div className="my-4">
           <label className="mr-2 block mb-2 text-base">Bot Token:</label>
-          <Input
+          <input
             type="text"
             value={token}
             onChange={(e) => setToken(e.target.value)}
