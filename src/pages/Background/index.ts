@@ -18,11 +18,14 @@ const showNotification = (title: string, message: string) => {
 const sendRequest = async (url: string) => {
   console.log('[Collect]', url);
   const config = await chrome.storage.sync.get({
-    apiHost: 'https://httpbin.org/post/',
+    apiHost: '',
     apiToken: '',
   });
-  const api_url = new URL('/' + config.apiToken, config.apiHost).href; //+ '/api';
-  return fetchWithTimeout(api_url, {
+  if (!config.apiHost || !config.apiToken) {
+    throw new Error('Please set API Host and Bot Token.');
+  }
+  const apiUrl = new URL(`/${config.apiToken}/api`, config.apiHost).href;
+  return fetchWithTimeout(apiUrl, {
     method: 'POST',
     body: JSON.stringify({ url }),
     headers: new Headers({
@@ -32,7 +35,9 @@ const sendRequest = async (url: string) => {
     .then((response) => {
       console.log('[Response]', response);
       if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
+        throw new Error(
+          `Request failed with status ${response.status}, please check your settings.`
+        );
       }
       return response;
     })
@@ -42,7 +47,7 @@ const sendRequest = async (url: string) => {
         if (response.msg) {
           throw new Error(response.msg);
         } else {
-          throw new Error('Unknown error');
+          throw new Error('Unknown error.');
         }
       }
     });
@@ -60,7 +65,7 @@ const handleNewCollection = (message: CollectNewMessage) => {
       console.log('[Fetch Error]', error);
       data.status = Status.ERROR;
       if (error.name === 'AbortError') {
-        data.error = 'Request timed out';
+        data.error = 'Request timed out, please try agian.';
       } else {
         data.error = String(error);
       }
@@ -75,12 +80,15 @@ const handleNewCollection = (message: CollectNewMessage) => {
     });
 };
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener((details) => {
   chrome.contextMenus.create({
     id: 'Nazurin',
     title: 'Add to Collection',
     contexts: ['all'],
   });
+  if (details.reason === 'install') {
+    chrome.runtime.openOptionsPage();
+  }
 });
 
 chrome.runtime.onMessage.addListener((message: Message, _, sendResponse) => {

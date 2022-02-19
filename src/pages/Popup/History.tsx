@@ -24,7 +24,7 @@ const History: React.FC = () => {
       <header className="flex flex-row mb-1">
         <h3 className="font-bold text-xl grow">History</h3>
         <button className="px-1" onClick={clearHistory} title="Clear">
-          <FaTrashAlt className="text-red-500" size="15" />
+          <FaTrashAlt className="text-rose-500" size="15" />
         </button>
       </header>
       <ul className="overflow-auto divide-y">

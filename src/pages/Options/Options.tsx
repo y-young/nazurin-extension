@@ -45,9 +45,9 @@ const Options: React.FC = () => {
         className="shadow-md rounded-lg p-3 text-center text-sm font-medium mx-auto w-full md:w-5/6 lg:w-2/3 xl:w-1/2"
         onSubmit={updateConfig}
       >
-        <h1 className="text-3xl font-bold mb-6">Settings</h1>
+        <h1 className="text-3xl font-bold my-6">Settings</h1>
         <div className="my-4">
-          <label className="mr-2 block mb-2 text-base">API URL:</label>
+          <label className="mr-2 block mb-2 text-base">API Host:</label>
           <input
             type="url"
             value={host}
@@ -55,7 +55,11 @@ const Options: React.FC = () => {
             pattern={'https?://.*'}
             placeholder="https://xxx.herokuapp.com/"
             required
+            className="peer"
           />
+          <div className="invisible peer-invalid:visible text-xs mt-1 text-rose-500">
+            API Host must be a valid URL like "https://xxx.herokuapp.com/".
+          </div>
         </div>
         <div className="my-4">
           <label className="mr-2 block mb-2 text-base">Bot Token:</label>
@@ -69,10 +73,11 @@ const Options: React.FC = () => {
         </div>
         <button
           formAction="submit"
-          className={
-            'gradient-theme hover:bg-black ' +
-            'text-white rounded-md font-semibold shadow px-4 py-2 text-sm my-2 focus:ring ring-orange-200'
-          }
+          className="
+            rounded-md shadow px-4 py-2 my-2
+            gradient-theme hover:bg-black
+            text-white font-semibold text-sm
+            focus:ring ring-orange-200"
         >
           Save
         </button>

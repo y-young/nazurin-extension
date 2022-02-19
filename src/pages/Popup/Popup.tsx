@@ -23,13 +23,13 @@ const Popup: React.FC = () => {
         <button
           onClick={send}
           className="
-            block w-1/3 border aspect-square mx-auto rounded-full cursor-pointer shadow-lg
-            text-center place-content-center align-middle text-orange-400
+            block w-1/3 border aspect-square mx-auto rounded-full shadow-lg
+            text-orange-400
             bg-white hover:bg-slate-100 active:bg-slate-200
             transition-all duration-100"
           title="Send"
         >
-          <FaRegPaperPlane className="inline w-1/2" size="40" />
+          <FaRegPaperPlane className="inline" size="40" />
         </button>
         <div className="float-right">
           <button
