@@ -1,5 +1,10 @@
 import { MessageType, Status } from '../../constants';
-import { getInfoFromTab, updateBadgeStatus, updateHistory } from '../../utils';
+import {
+  fetchWithTimeout,
+  getInfoFromTab,
+  updateBadgeStatus,
+  updateHistory,
+} from '../../utils';
 
 const showNotification = (title: string, message: string) => {
   chrome.notifications.create(String(Date.now()), {
@@ -17,7 +22,7 @@ const sendRequest = async (url: string) => {
     apiToken: '',
   });
   const api_url = new URL('/' + config.apiToken, config.apiHost).href; //+ '/api';
-  return fetch(api_url, {
+  return fetchWithTimeout(api_url, {
     method: 'POST',
     body: JSON.stringify({ url }),
     headers: new Headers({
@@ -51,13 +56,17 @@ const handleNewCollection = (message: CollectNewMessage) => {
   updateBadgeStatus(data.status, tabId);
   sendRequest(data.url)
     .then(() => (data.status = Status.SUCCESS))
-    .catch((error) => {
-      console.error('[Fetch Error]', error);
+    .catch((error: Error) => {
+      console.log('[Fetch Error]', error);
       data.status = Status.ERROR;
-      data.error = String(error);
+      if (error.name === 'AbortError') {
+        data.error = 'Request timed out';
+      } else {
+        data.error = String(error);
+      }
       showNotification(
         'Nazurin: Request Failed',
-        `${String(error)}\nURL: ${data.url}`
+        `${data.error}\nURL: ${data.url}`
       );
     })
     .finally(() => {
