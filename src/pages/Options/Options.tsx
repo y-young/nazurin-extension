@@ -48,7 +48,7 @@ const Options: React.FC = () => {
       >
         <h1 className="text-3xl font-bold mb-6">Settings</h1>
         <div className="my-4">
-          <label className="mr-2 block mb-2">API URL:</label>
+          <label className="mr-2 block mb-2 text-base">API URL:</label>
           <Input
             type="url"
             value={host}
@@ -59,7 +59,7 @@ const Options: React.FC = () => {
           />
         </div>
         <div className="my-4">
-          <label className="mr-2 block mb-2">Bot Token:</label>
+          <label className="mr-2 block mb-2 text-base">Bot Token:</label>
           <Input
             type="text"
             value={token}
@@ -69,8 +69,11 @@ const Options: React.FC = () => {
           />
         </div>
         <button
-          role="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white rounded-md font-semibold shadow px-4 py-2 text-sm my-2 focus:ring"
+          formAction="submit"
+          className={
+            'gradient-theme hover:bg-black ' +
+            'text-white rounded-md font-semibold shadow px-4 py-2 text-sm my-2 focus:ring ring-orange-200'
+          }
         >
           Save
         </button>

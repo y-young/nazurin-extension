@@ -20,7 +20,7 @@ const Popup: React.FC = () => {
   };
 
   return (
-    <main className="w-full bg-gradient-to-r from-[#F25252F2] to-[#F7DD7C]">
+    <main className="w-full gradient-theme">
       <section className="px-2 py-6">
         <button
           onClick={send}

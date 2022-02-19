@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .gradient-theme {
+    @apply bg-gradient-to-r from-[#F25252F2] to-[#F7DD7C];
+  }
+}

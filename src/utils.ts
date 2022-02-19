@@ -45,3 +45,19 @@ export const updateBadgeStatus = (status: Status, tabId?: number) => {
   chrome.action.setBadgeText({ tabId, text: texts[status] });
   chrome.action.setBadgeBackgroundColor({ tabId, color: colors[status] });
 };
+
+export const fetchWithTimeout = async (
+  resource: RequestInfo,
+  options: RequestInit & { timeout?: number } = {}
+) => {
+  const { timeout = 7000 } = options;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  const response = await fetch(resource, {
+    ...options,
+    signal: controller.signal,
+  });
+  clearTimeout(id);
+  return response;
+};
