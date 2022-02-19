@@ -11,12 +11,10 @@ const Popup: React.FC = () => {
     if (!data) {
       return;
     }
-    chrome.runtime.sendMessage<CollectNewMessage>(
-      { type: MessageType.COLLECT_NEW, data },
-      (response) => {
-        console.log(response);
-      }
-    );
+    chrome.runtime.sendMessage<CollectNewMessage>({
+      type: MessageType.COLLECT_NEW,
+      data,
+    });
   };
 
   return (

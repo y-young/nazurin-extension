@@ -81,12 +81,13 @@ chrome.runtime.onInstalled.addListener(() => {
     title: 'Add to Collection',
     contexts: ['all'],
   });
-  chrome.runtime.onMessage.addListener((message: Message, _, sendResponse) => {
-    if (message.type === MessageType.COLLECT_NEW) {
-      handleNewCollection(message as CollectNewMessage);
-    }
-    sendResponse();
-  });
+});
+
+chrome.runtime.onMessage.addListener((message: Message, _, sendResponse) => {
+  if (message.type === MessageType.COLLECT_NEW) {
+    handleNewCollection(message as CollectNewMessage);
+  }
+  sendResponse();
 });
 
 chrome.contextMenus.onClicked.addListener(() => {

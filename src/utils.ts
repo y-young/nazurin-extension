@@ -4,6 +4,7 @@ export const getInfoFromTab = (
   tab?: chrome.tabs.Tab
 ): CollectionRequest | null => {
   if (!tab || !tab.title || !tab.url) {
+    console.log('[Send] Failed to get info from tab', tab);
     return null;
   }
   return {
