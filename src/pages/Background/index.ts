@@ -22,7 +22,7 @@ const sendRequest = async (url: string) => {
     apiToken: '',
   });
   if (!config.apiHost || !config.apiToken) {
-    throw new Error('Please set API Host and Bot Token.');
+    throw new Error(chrome.i18n.getMessage('noConfigError'));
   }
   const apiUrl = new URL(`/${config.apiToken}/api`, config.apiHost).href;
   return fetchWithTimeout(apiUrl, {
@@ -36,7 +36,10 @@ const sendRequest = async (url: string) => {
       console.log('[Response]', response);
       if (!response.ok) {
         throw new Error(
-          `Request failed with status ${response.status}, please check your settings.`
+          chrome.i18n.getMessage(
+            'responseStatusError',
+            response.status.toString()
+          )
         );
       }
       return response;
@@ -47,7 +50,7 @@ const sendRequest = async (url: string) => {
         if (response.msg) {
           throw new Error(response.msg);
         } else {
-          throw new Error('Unknown error.');
+          throw new Error(chrome.i18n.getMessage('unknownError'));
         }
       }
     });
@@ -65,12 +68,12 @@ const handleNewCollection = (message: CollectNewMessage) => {
       console.log('[Fetch Error]', error);
       data.status = Status.ERROR;
       if (error.name === 'AbortError') {
-        data.error = 'Request timed out, please try agian.';
+        data.error = chrome.i18n.getMessage('timeoutError');
       } else {
         data.error = String(error);
       }
       showNotification(
-        'Nazurin: Request Failed',
+        `Nazurin: ${chrome.i18n.getMessage('requestFailed')}`,
         `${data.error}\nURL: ${data.url}`
       );
     })
@@ -83,6 +86,7 @@ const handleNewCollection = (message: CollectNewMessage) => {
 chrome.runtime.onInstalled.addListener((details) => {
   chrome.contextMenus.create({
     id: 'Nazurin',
+    // Context menu i18n is not supported yet
     title: 'Add to Collection',
     contexts: ['all'],
   });

@@ -1,0 +1,68 @@
+{
+  "extensionDescription": {
+    "message": "The browser extension for Nazurin."
+  },
+  "noConfigError": {
+    "message": "Please set API Host and Bot Token."
+  },
+  "responseStatusError": {
+    "message": "Request failed with status $status$, please check your settings.",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "404"
+      }
+    }
+  },
+  "unknownError": {
+    "message": "Unknown error."
+  },
+  "timeoutError": {
+    "message": "Request timed out, please try again."
+  },
+  "requestFailed": {
+    "message": "Request Failed"
+  },
+  "addToCollectionMenu": {
+    "message": "Add to Collection"
+  },
+  "settingsPageTitle": {
+    "message": "Settings"
+  },
+  "settingsApiHost": {
+    "message": "API Host:"
+  },
+  "invalidApiHostError": {
+    "message": "API Host must be a valid URL like \"https://xxx.herokuapp.com/\"."
+  },
+  "settingsBotToken": {
+    "message": "Bot Token:"
+  },
+  "settingsSave": {
+    "message": "Save"
+  },
+  "historyTitle": {
+    "message": "History"
+  },
+  "historyClear": {
+    "message": "Clear"
+  },
+  "noData": {
+    "message": "No Data"
+  },
+  "noDataHint": {
+    "message": "Start collecting by clicking the button above."
+  },
+  "sendButtonTitle": {
+    "message": "Send"
+  },
+  "pendingStatus": {
+    "message": "Pending"
+  },
+  "successStatus": {
+    "message": "Success"
+  },
+  "errorStatus": {
+    "message": "Error"
+  }
+}

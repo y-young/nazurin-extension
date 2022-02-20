@@ -62,3 +62,15 @@ export const fetchWithTimeout = async (
   clearTimeout(id);
   return response;
 };
+
+export const localizeHtml = () => {
+  const localizeAttr = 'data-localize';
+  document.querySelectorAll(`[${localizeAttr}]`).forEach((elem) => {
+    elem.innerHTML = chrome.i18n.getMessage(
+      elem.getAttribute(localizeAttr) || ''
+    );
+  });
+  document
+    .querySelector('html')
+    ?.setAttribute('lang', chrome.i18n.getUILanguage());
+};

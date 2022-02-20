@@ -22,8 +22,14 @@ const History: React.FC = () => {
   return (
     <>
       <header className="flex flex-row mb-1">
-        <h3 className="font-bold text-xl grow">History</h3>
-        <button className="px-1" onClick={clearHistory} title="Clear">
+        <h3 className="font-bold text-xl grow">
+          {chrome.i18n.getMessage('historyTitle')}
+        </h3>
+        <button
+          className="px-1"
+          onClick={clearHistory}
+          title={chrome.i18n.getMessage('historyClear')}
+        >
           <FaTrashAlt className="text-rose-500" size="15" />
         </button>
       </header>
@@ -35,9 +41,9 @@ const History: React.FC = () => {
         ))}
         {history.length === 0 && (
           <div className="text-slate-500 text-center text-xs py-5">
-            <span className="text-sm">No Data</span>
+            <span className="text-sm">{chrome.i18n.getMessage('noData')}</span>
             <br />
-            Start collecting by clicking the button above.
+            {chrome.i18n.getMessage('noDataHint')}
           </div>
         )}
       </ul>

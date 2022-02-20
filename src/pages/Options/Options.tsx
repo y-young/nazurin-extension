@@ -1,5 +1,6 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useLayoutEffect, useState } from 'react';
 import { FiCheck } from 'react-icons/fi';
+import { localizeHtml } from '../../utils';
 
 const Options: React.FC = () => {
   const [host, setHost] = useState('');
@@ -9,6 +10,10 @@ const Options: React.FC = () => {
   useEffect(() => {
     loadConfig();
   }, []);
+
+  useLayoutEffect(() => {
+    localizeHtml();
+  });
 
   const loadConfig = () => {
     chrome.storage.sync.get(
@@ -45,9 +50,13 @@ const Options: React.FC = () => {
         className="shadow-md rounded-lg p-3 text-center text-sm font-medium mx-auto w-full md:w-5/6 lg:w-2/3 xl:w-1/2"
         onSubmit={updateConfig}
       >
-        <h1 className="text-3xl font-bold my-6">Settings</h1>
+        <h1 className="text-3xl font-bold my-6">
+          {chrome.i18n.getMessage('settingsPageTitle')}
+        </h1>
         <div className="my-4">
-          <label className="mr-2 block mb-2 text-base">API Host:</label>
+          <label className="mr-2 block mb-2 text-base">
+            {chrome.i18n.getMessage('settingsApiHost')}
+          </label>
           <input
             type="url"
             value={host}
@@ -58,11 +67,13 @@ const Options: React.FC = () => {
             className="peer"
           />
           <div className="invisible peer-invalid:visible text-xs mt-1 text-rose-500">
-            API Host must be a valid URL like "https://xxx.herokuapp.com/".
+            {chrome.i18n.getMessage('invalidApiHostError')}
           </div>
         </div>
         <div className="my-4">
-          <label className="mr-2 block mb-2 text-base">Bot Token:</label>
+          <label className="mr-2 block mb-2 text-base">
+            {chrome.i18n.getMessage('settingsBotToken')}
+          </label>
           <input
             type="text"
             value={token}
@@ -79,7 +90,7 @@ const Options: React.FC = () => {
             text-white font-semibold text-sm
             focus:ring ring-orange-200"
         >
-          Save
+          {chrome.i18n.getMessage('settingsSave')}
         </button>
         <span
           className={

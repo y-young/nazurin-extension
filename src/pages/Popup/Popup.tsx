@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { FaCog, FaGithub, FaRegPaperPlane } from 'react-icons/fa';
 import { MessageType } from '../../constants';
-import { getInfoFromTab, openInNewTab } from '../../utils';
+import { getInfoFromTab, localizeHtml, openInNewTab } from '../../utils';
 import History from './History';
 
 const Popup: React.FC = () => {
+  useLayoutEffect(() => {
+    localizeHtml();
+  });
+
   const send = async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     const data = getInfoFromTab(tab);
@@ -27,7 +31,7 @@ const Popup: React.FC = () => {
             text-orange-400
             bg-white hover:bg-slate-100 active:bg-slate-200
             transition-all duration-100"
-          title="Send"
+          title={chrome.i18n.getMessage('sendButtonTitle')}
         >
           <FaRegPaperPlane className="inline" size="40" />
         </button>
@@ -43,7 +47,7 @@ const Popup: React.FC = () => {
           </button>
           <button
             onClick={() => chrome.runtime.openOptionsPage()}
-            title="Settings"
+            title={chrome.i18n.getMessage('settingsPageTitle')}
           >
             <FaCog className="fill-white" size="15" />
           </button>

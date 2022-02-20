@@ -1,0 +1,68 @@
+{
+  "extensionDescription": {
+    "message": "Nazurin 的浏览器扩展。"
+  },
+  "noConfigError": {
+    "message": "请设置 API 地址和 Bot Token."
+  },
+  "responseStatusError": {
+    "message": "请求失败，API 返回的状态为 $status$，请检查设置。",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "404"
+      }
+    }
+  },
+  "unknownError": {
+    "message": "未知错误。"
+  },
+  "timeoutError": {
+    "message": "请求超时，请重试。"
+  },
+  "requestFailed": {
+    "message": "请求失败"
+  },
+  "addToCollectionMenu": {
+    "message": "添加到收藏"
+  },
+  "settingsPageTitle": {
+    "message": "设置"
+  },
+  "settingsApiHost": {
+    "message": "API 地址:"
+  },
+  "invalidApiHostError": {
+    "message": "API 地址必须是一个有效的 URL，如 \"https://xxx.herokuapp.com/\"."
+  },
+  "settingsBotToken": {
+    "message": "Bot Token:"
+  },
+  "settingsSave": {
+    "message": "保存"
+  },
+  "historyTitle": {
+    "message": "历史"
+  },
+  "historyClear": {
+    "message": "清除"
+  },
+  "noData": {
+    "message": "无数据"
+  },
+  "noDataHint": {
+    "message": "点击上方的按钮开始使用"
+  },
+  "sendButtonTitle": {
+    "message": "发送"
+  },
+  "pendingStatus": {
+    "message": "处理中"
+  },
+  "successStatus": {
+    "message": "成功"
+  },
+  "errorStatus": {
+    "message": "失败"
+  }
+}

@@ -14,7 +14,7 @@ const StatusIcon: React.FC<Props> = ({ status }) => {
         <AiOutlineLoading
           className="animate-spin"
           size={ICON_SIZE}
-          title="Pending"
+          title={chrome.i18n.getMessage('pendingStatus')}
         />
       );
     case Status.SUCCESS:
@@ -22,11 +22,17 @@ const StatusIcon: React.FC<Props> = ({ status }) => {
         <FiCheck
           size={ICON_SIZE}
           className="text-emerald-500"
-          title="Success"
+          title={chrome.i18n.getMessage('successStatus')}
         />
       );
     case Status.ERROR:
-      return <FiX size={ICON_SIZE} className="text-rose-500" title="Error" />;
+      return (
+        <FiX
+          size={ICON_SIZE}
+          className="text-rose-500"
+          title={chrome.i18n.getMessage('errorStatus')}
+        />
+      );
   }
 };
 
