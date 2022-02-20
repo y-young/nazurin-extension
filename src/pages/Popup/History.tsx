@@ -34,7 +34,7 @@ const History: React.FC = () => {
           </li>
         ))}
         {history.length === 0 && (
-          <div className="text-slate-500 text-center py-5">
+          <div className="text-slate-500 text-center text-xs py-5">
             <span className="text-sm">No Data</span>
             <br />
             Start collecting by clicking the button above.
