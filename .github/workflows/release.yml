@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  ARTIFACT_NAME: nazurin-extension-${{ github.ref_name }}.zip
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: yarn
+
+      - name: Build
+        run: |
+          yarn install --frozen-lockfile
+          yarn run build
+          zip -rj '${{ env.ARTIFACT_NAME }}' ./build
+
+      - name: Create release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: ${{ github.ref_name }}
+          prerelease: false
+          files: ${{ env.ARTIFACT_NAME }}
