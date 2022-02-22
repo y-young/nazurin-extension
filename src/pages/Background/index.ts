@@ -1,4 +1,4 @@
-import { MessageType, Status } from '../../constants';
+import { MessageType, Status, URL_PATTERNS } from '../../constants';
 import {
   fetchWithTimeout,
   getInfoFromTab,
@@ -89,6 +89,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     // Context menu i18n is not supported yet
     title: 'Add to Collection',
     contexts: ['all'],
+    documentUrlPatterns: URL_PATTERNS,
   });
   if (details.reason === 'install') {
     chrome.runtime.openOptionsPage();
