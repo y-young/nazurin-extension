@@ -25,12 +25,11 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn run build
-          zip -rj '${{ env.ARTIFACT_NAME }}' ./build
+          pushd build && zip -r ../${{ env.ARTIFACT_NAME }} ./* && popd
 
       - name: Create release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: ${{ github.ref_name }}
           prerelease: false
           files: ${{ env.ARTIFACT_NAME }}
