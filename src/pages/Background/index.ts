@@ -22,7 +22,7 @@ const sendRequest = async (url: string) => {
     apiToken: '',
   });
   if (!config.apiHost || !config.apiToken) {
-    throw new Error(chrome.i18n.getMessage('noConfigError'));
+    throw new Error('Please set API Host and Bot Token.');
   }
   const apiUrl = new URL(`/${config.apiToken}/api`, config.apiHost).href;
   return fetchWithTimeout(apiUrl, {
@@ -36,10 +36,7 @@ const sendRequest = async (url: string) => {
       console.log('[Response]', response);
       if (!response.ok) {
         throw new Error(
-          chrome.i18n.getMessage(
-            'responseStatusError',
-            response.status.toString()
-          )
+          `Request failed with status ${response.status.toString()}, please check your settings.`
         );
       }
       return response;
@@ -50,7 +47,7 @@ const sendRequest = async (url: string) => {
         if (response.msg) {
           throw new Error(response.msg);
         } else {
-          throw new Error(chrome.i18n.getMessage('unknownError'));
+          throw new Error('Unknown error.');
         }
       }
     });
@@ -68,12 +65,12 @@ const handleNewCollection = (message: CollectNewMessage) => {
       console.log('[Fetch Error]', error);
       data.status = Status.ERROR;
       if (error.name === 'AbortError') {
-        data.error = chrome.i18n.getMessage('timeoutError');
+        data.error = 'Request timed out, please try again.';
       } else {
         data.error = String(error);
       }
       showNotification(
-        `Nazurin: ${chrome.i18n.getMessage('requestFailed')}`,
+        'Nazurin: Request Failed',
         `${data.error}\nURL: ${data.url}`
       );
     })
