@@ -63,6 +63,6 @@
     "message": "Success"
   },
   "errorStatus": {
-    "message": "Error"
+    "message": "Error, click to retry"
   }
 }

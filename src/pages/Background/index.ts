@@ -24,7 +24,7 @@ const sendRequest = async (url: string) => {
   if (!config.apiHost || !config.apiToken) {
     throw new Error('Please set API Host and Bot Token.');
   }
-  const apiUrl = new URL(`/${config.apiToken}/api`, config.apiHost).href;
+  const apiUrl = new URL(`${config.apiToken}/api`, config.apiHost).href;
   return fetchWithTimeout(apiUrl, {
     method: 'POST',
     body: JSON.stringify({ url }),
@@ -60,7 +60,10 @@ const handleNewCollection = (message: CollectNewMessage) => {
   updateHistory(data);
   updateBadgeStatus(data.status, tabId);
   sendRequest(data.url)
-    .then(() => (data.status = Status.SUCCESS))
+    .then(() => {
+      data.status = Status.SUCCESS;
+      data.error = undefined;
+    })
     .catch((error: Error) => {
       console.log('[Fetch Error]', error);
       data.status = Status.ERROR;
@@ -94,8 +97,11 @@ chrome.runtime.onInstalled.addListener((details) => {
 });
 
 chrome.runtime.onMessage.addListener((message: Message, _, sendResponse) => {
-  if (message.type === MessageType.COLLECT_NEW) {
-    handleNewCollection(message as CollectNewMessage);
+  switch (message.type) {
+    case MessageType.COLLECT_NEW:
+    case MessageType.RETRY:
+      handleNewCollection(message as CollectNewMessage);
+      break;
   }
   sendResponse();
 });

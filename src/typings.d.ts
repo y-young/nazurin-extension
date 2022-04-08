@@ -24,3 +24,7 @@ interface Message {
 interface CollectNewMessage extends Message {
   data: CollectionRequest;
 }
+
+interface RetryMessage extends Message {
+  data: ProcessedItem;
+}

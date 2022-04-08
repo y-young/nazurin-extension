@@ -63,6 +63,6 @@
     "message": "成功"
   },
   "errorStatus": {
-    "message": "失败"
+    "message": "失败，点击重试"
   }
 }

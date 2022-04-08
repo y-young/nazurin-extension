@@ -1,4 +1,5 @@
 import React from 'react';
+import { MessageType } from '../../constants';
 import { openInNewTab } from '../../utils';
 import StatusIcon from './StatusIcon';
 
@@ -6,6 +7,13 @@ type Props = { item: ProcessedItem };
 
 const HistoryItem: React.FC<Props> = ({ item }) => {
   const date = new Date(item.timestamp);
+
+  const retry = async () => {
+    chrome.runtime.sendMessage<RetryMessage>({
+      type: MessageType.RETRY,
+      data: item,
+    });
+  };
 
   return (
     <article className="py-2">
@@ -17,7 +25,7 @@ const HistoryItem: React.FC<Props> = ({ item }) => {
           {item.title}
         </div>
         <span className="px-1">
-          <StatusIcon status={item.status} />
+          <StatusIcon status={item.status} handleRetry={retry} />
         </span>
       </div>
       <div className="flex">

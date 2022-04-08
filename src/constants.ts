@@ -1,5 +1,6 @@
 export enum MessageType {
   COLLECT_NEW,
+  RETRY,
 }
 
 export enum Status {

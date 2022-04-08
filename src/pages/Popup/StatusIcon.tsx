@@ -3,11 +3,11 @@ import { AiOutlineLoading } from 'react-icons/ai';
 import { FiCheck, FiX } from 'react-icons/fi';
 import { Status } from '../../constants';
 
-type Props = { status: Status };
+type Props = { status: Status; handleRetry: () => void };
 
 const ICON_SIZE = 18;
 
-const StatusIcon: React.FC<Props> = ({ status }) => {
+const StatusIcon: React.FC<Props> = ({ status, handleRetry }) => {
   switch (status) {
     case Status.PENDING:
       return (
@@ -29,8 +29,9 @@ const StatusIcon: React.FC<Props> = ({ status }) => {
       return (
         <FiX
           size={ICON_SIZE}
-          className="text-rose-500"
+          className="text-rose-500 cursor-pointer"
           title={chrome.i18n.getMessage('errorStatus')}
+          onClick={handleRetry}
         />
       );
   }
