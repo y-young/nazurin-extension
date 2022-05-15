@@ -39,4 +39,8 @@ export const URL_PATTERNS = [
   // Weibo
   '*://*.weibo.com/*',
   '*://*.weibo.cn/*',
+  // DeviantArt
+  '*://*.deviantart.com/*',
+  // Lofter
+  '*://*.lofter.com/*',
 ];
